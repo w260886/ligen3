@@ -2,16 +2,12 @@ package com.web.service.entity;
 
 import java.util.Date;
 
-public class User {
+public class UserRoleR {
     private Integer id;
 
     private String userCode;
 
-    private String userName;
-
-    private String userPwd;
-
-    private String remark;
+    private String roleCode;
 
     private String createBy;
 
@@ -41,28 +37,12 @@ public class User {
         this.userCode = userCode == null ? null : userCode.trim();
     }
 
-    public String getUserName() {
-        return userName;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getUserPwd() {
-        return userPwd;
-    }
-
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd == null ? null : userPwd.trim();
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode == null ? null : roleCode.trim();
     }
 
     public String getCreateBy() {

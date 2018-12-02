@@ -12,11 +12,11 @@ public class IndexController extends BaseController {
     public String index(Model model, HttpServletResponse response) {
         try{
             model.addAttribute("name", "simonsfan");
-            logger.info("TestBootController getUser info");
+            log.info("TestBootController getUser info");
             return "";
         }catch (Exception e){
             e.printStackTrace();
-            logger.error("cuowu!");
+            log.error("cuowu!");
             return "";
         }
     }

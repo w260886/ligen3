@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.web.service.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.web.service.entity.User">
+<mapper namespace="com.web.service.dao.UserRoleRMapper">
+  <resultMap id="BaseResultMap" type="com.web.service.entity.UserRoleR">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
-    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
-    <result column="USER_PWD" jdbcType="VARCHAR" property="userPwd" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode" />
     <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
     <result column="MODIFIED_BY" jdbcType="VARCHAR" property="modifiedBy" />
@@ -15,31 +13,31 @@
     <result column="STATE" jdbcType="INTEGER" property="state" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, USER_CODE, USER_NAME, USER_PWD, REMARK, CREATE_BY, CREATE_DATE, MODIFIED_BY, 
-    MODIFIED_DATE, SORTNO, STATE
+    ID, USER_CODE, ROLE_CODE, CREATE_BY, CREATE_DATE, MODIFIED_BY, MODIFIED_DATE, SORTNO, 
+    STATE
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from user_role_r
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
+    delete from user_role_r
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.web.service.entity.User">
-    insert into user (ID, USER_CODE, USER_NAME, 
-      USER_PWD, REMARK, CREATE_BY, 
-      CREATE_DATE, MODIFIED_BY, MODIFIED_DATE, 
-      SORTNO, STATE)
-    values (#{id,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{userPwd,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{modifiedBy,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP}, 
-      #{sortno,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.web.service.entity.UserRoleR">
+    insert into user_role_r (ID, USER_CODE, ROLE_CODE, 
+      CREATE_BY, CREATE_DATE, MODIFIED_BY, 
+      MODIFIED_DATE, SORTNO, STATE
+      )
+    values (#{id,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifiedBy,jdbcType=VARCHAR}, 
+      #{modifiedDate,jdbcType=TIMESTAMP}, #{sortno,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.web.service.entity.User">
-    insert into user
+  <insert id="insertSelective" parameterType="com.web.service.entity.UserRoleR">
+    insert into user_role_r
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         ID,
@@ -47,14 +45,8 @@
       <if test="userCode != null">
         USER_CODE,
       </if>
-      <if test="userName != null">
-        USER_NAME,
-      </if>
-      <if test="userPwd != null">
-        USER_PWD,
-      </if>
-      <if test="remark != null">
-        REMARK,
+      <if test="roleCode != null">
+        ROLE_CODE,
       </if>
       <if test="createBy != null">
         CREATE_BY,
@@ -82,14 +74,8 @@
       <if test="userCode != null">
         #{userCode,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userPwd != null">
-        #{userPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null">
         #{createBy,jdbcType=VARCHAR},
@@ -111,20 +97,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.web.service.entity.User">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.service.entity.UserRoleR">
+    update user_role_r
     <set>
       <if test="userCode != null">
         USER_CODE = #{userCode,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null">
-        USER_NAME = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userPwd != null">
-        USER_PWD = #{userPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        REMARK = #{remark,jdbcType=VARCHAR},
+      <if test="roleCode != null">
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null">
         CREATE_BY = #{createBy,jdbcType=VARCHAR},
@@ -147,12 +127,10 @@
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.web.service.entity.User">
-    update user
+  <update id="updateByPrimaryKey" parameterType="com.web.service.entity.UserRoleR">
+    update user_role_r
     set USER_CODE = #{userCode,jdbcType=VARCHAR},
-      USER_NAME = #{userName,jdbcType=VARCHAR},
-      USER_PWD = #{userPwd,jdbcType=VARCHAR},
-      REMARK = #{remark,jdbcType=VARCHAR},
+      ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
       CREATE_BY = #{createBy,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       MODIFIED_BY = #{modifiedBy,jdbcType=VARCHAR},
