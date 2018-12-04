@@ -22,6 +22,18 @@
     from user_role
     where ID = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getUserRoleInfos" resultType="com.web.service.entity.UserRole">
+    select a.user_code userCode,b.id,b.role_code roleCode,b.role_name roleName,
+    b.create_by createBy,b.create_date createDate,b.modified_by modifiedBy,b.modified_date modifiedDate,b.sortno,b.state
+    from user a,user_role b,user_role_r r
+    where a.user_code = r.user_code and b.role_code = r.role_code and b.state = #{state}
+    <if test="userCode != null">
+      and a.user_code = #{userCode}
+    </if>
+    <if test="roleCode != null">
+      and b.role_code = #{roleCode}
+    </if>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_role
     where ID = #{id,jdbcType=INTEGER}

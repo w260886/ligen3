@@ -26,10 +26,5 @@ public interface UserMapper {
      */
     List<User> getUserInfos(Map<String, Object> paramMap);
 
-    /**
-     * 获取用户角色信息
-     * @param paramMap
-     * @return List<UserRoleInfo>
-     */
-    List<UserRole> getUserRoleInfos(Map<String, Object> paramMap);
+
 }

@@ -1,6 +1,7 @@
 package com.web.service.serivce;
 
 import com.web.service.dao.UserMapper;
+import com.web.service.dao.UserRoleMapper;
 import com.web.service.entity.User;
 import com.web.service.entity.UserRole;
 import org.slf4j.Logger;
@@ -19,6 +20,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
+    private UserRoleMapper userRoleMapper;
+    @Autowired
     private BaseServiceClient baseServiceClient;
 
 
@@ -33,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserRole> getUserRoleInfos(Map<String, Object> paramMap) {
         paramMap.put("state", 1);
-        return userMapper.getUserRoleInfos(paramMap);
+        return userRoleMapper.getUserRoleInfos(paramMap);
     }
 
     @Override
