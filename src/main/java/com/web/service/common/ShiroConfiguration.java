@@ -49,23 +49,25 @@ public class ShiroConfiguration extends BaseController {
         ShiroFilterFactoryBean filterFactoryBean = new ShiroFilterFactoryBean();
         filterFactoryBean.setSecurityManager(securityManager);
         // 配置登录的url和登录成功的url
-        filterFactoryBean.setLoginUrl("/auth/login");
-        filterFactoryBean.setSuccessUrl("/home");
+        filterFactoryBean.setLoginUrl("/login.html");
+        filterFactoryBean.setSuccessUrl("/index.html");
         // 配置未授权跳转页面
         filterFactoryBean.setUnauthorizedUrl("/errorPage/403");
         // 配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/css/**", "anon"); // 表示可以匿名访问
-        filterChainDefinitionMap.put("/fonts/**", "anon");
-        filterChainDefinitionMap.put("/imgs/**", "anon");
-        filterChainDefinitionMap.put("/js/**", "anon");
-        filterChainDefinitionMap.put("/auth/**", "anon");
-        filterChainDefinitionMap.put("/errorPage/**", "anon");
-        filterChainDefinitionMap.put("/demo/**", "anon");
-        filterChainDefinitionMap.put("/swagger-*/**", "anon");
-        filterChainDefinitionMap.put("/swagger-ui.html/**", "anon");
-        filterChainDefinitionMap.put("/webjars/**", "anon");
-        filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/common/**", "anon"); // 表示可以匿名访问
+        filterChainDefinitionMap.put("/login_in", "anon"); // 表示可以匿名访问
+//        filterChainDefinitionMap.put("/common/css/**", "anon");
+//        filterChainDefinitionMap.put("/common/font/**", "anon");
+//        filterChainDefinitionMap.put("/common/font-awesome-4.0.3/**", "anon");
+//        filterChainDefinitionMap.put("/common/images/**", "anon");
+//        filterChainDefinitionMap.put("/common/img/**", "anon");
+//        filterChainDefinitionMap.put("/common/javascript/**", "anon");
+//        filterChainDefinitionMap.put("/common/js/**", "anon");
+//        filterChainDefinitionMap.put("/common/style/**", "anon");
+//        filterChainDefinitionMap.put("/common/webjars/**", "anon");
+        filterChainDefinitionMap.put("/login.html", "anon");
+        filterChainDefinitionMap.put("/404-page.html", "anon");
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");// 表示admin权限才可以访问，多个加引号用逗号相隔
         filterChainDefinitionMap.put("/*", "authc");// 表示需要认证才可以访问
         filterChainDefinitionMap.put("/**", "authc");

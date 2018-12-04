@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Thin Admin</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1.0;text/html; charset=utf-8" />
 <!-- Bootstrap -->
 <link href="common/css/bootstrap.css" rel="stylesheet" media="screen">
 <link href="common/css/thin-admin.css" rel="stylesheet" media="screen">
@@ -13,7 +13,6 @@
 
 </head>
 <body>
-
 <div class="login-logo">
 	<img src="common/images/logo.png" width="147" height="33">
 </div>
@@ -22,23 +21,23 @@
 <div class="login-content">
   <div class="widget-content" style="padding-bottom:0;">
   <form method="get" action="index.html" class="no-margin">
-                <h3 class="form-title">Login to your account</h3>
+                <h3 class="form-title">登录</h3>
                 
                 <fieldset>
                     <div class="form-group no-margin">
-                        <label for="email">Email</label>
+                        <label for="account">帐号</label>
 
                         <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
                                     <i class="icon-user"></i>
                                 </span>
-                            <input type="email" placeholder="Your Email" class="form-control input-lg" id="email">
+                            <input type="test" placeholder="Your Account" class="form-control input-lg" id="account">
                         </div>
 
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">密码</label>
 
                         <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
@@ -53,10 +52,10 @@
 				<label class="checkbox">
 				<div class="checker"><span><input type="checkbox" value="1" name="remember"></span></div> Remember me
 				</label>
-				<button class="btn btn-warning pull-right" type="submit">
-				Login <i class="m-icon-swapright m-icon-white"></i>
+				<button class="btn btn-warning pull-right" type="submit" id="login">
+				登录 <i class="m-icon-swapright m-icon-white" ></i>
 				</button> 
-                <div class="forgot"><a href="#" class="forgot">Forgot Username or Password?</a></div>           
+                <div class="forgot"><a href="#" class="forgot">忘记密码?</a></div>
 			</div>
             
             
@@ -89,16 +88,16 @@
                         
 
                     <div class="predefined_styles">
-                        <a class="styleswitch" rel="a" href=""><img alt="" src="images/a.jpg"></a>	
-                        <a class="styleswitch" rel="b" href=""><img alt="" src="images/b.jpg"></a>
-                        <a class="styleswitch" rel="c" href=""><img alt="" src="images/c.jpg"></a>
-                        <a class="styleswitch" rel="d" href=""><img alt="" src="images/d.jpg"></a>
-                        <a class="styleswitch" rel="e" href=""><img alt="" src="images/e.jpg"></a>
-                        <a class="styleswitch" rel="f" href=""><img alt="" src="images/f.jpg"></a>
-                        <a class="styleswitch" rel="g" href=""><img alt="" src="images/g.jpg"></a>
-                        <a class="styleswitch" rel="h" href=""><img alt="" src="images/h.jpg"></a>
-                        <a class="styleswitch" rel="i" href=""><img alt="" src="images/i.jpg"></a>
-                        <a class="styleswitch" rel="j" href=""><img alt="" src="images/j.jpg"></a>
+                        <a class="styleswitch" rel="a" href=""><img alt="" src="common/images/a.jpg"></a>
+                        <a class="styleswitch" rel="b" href=""><img alt="" src="common/images/b.jpg"></a>
+                        <a class="styleswitch" rel="c" href=""><img alt="" src="common/images/c.jpg"></a>
+                        <a class="styleswitch" rel="d" href=""><img alt="" src="common/images/d.jpg"></a>
+                        <a class="styleswitch" rel="e" href=""><img alt="" src="common/images/e.jpg"></a>
+                        <a class="styleswitch" rel="f" href=""><img alt="" src="common/images/f.jpg"></a>
+                        <a class="styleswitch" rel="g" href=""><img alt="" src="common/images/g.jpg"></a>
+                        <a class="styleswitch" rel="h" href=""><img alt="" src="common/images/h.jpg"></a>
+                        <a class="styleswitch" rel="i" href=""><img alt="" src="common/images/i.jpg"></a>
+                        <a class="styleswitch" rel="j" href=""><img alt="" src="common/images/j.jpg"></a>
                     </div>
 					                    
                 </div>
@@ -122,4 +121,31 @@
 <link rel="alternate stylesheet" type="text/css" href="common/assets/switcher/j.css" title="j" media="all" />
 
 </body>
+<script>
+    $("#login").click(function(){
+            alert(1);
+            var userCode = $.trim($("#account").val());
+            var userPwd = $.trim($("#password").val());
+            var hexPwd = hex_md5(userPwd);
+            $.ajax({
+                type: 'POST',
+                url: "http://localhost:8080/login_in",
+                data: {"userCode":userCode,"userPwd":hexPwd},
+                dataType:"json",
+                success: function(rep){
+                    if(rep.status == 0){
+                        alert(rep.message);
+                        alert(rep.data);
+                        //window.location.reload();
+//                    loadPage(0,baseUrl);
+                    }else{
+                        alert(rep.message);
+                    }
+                },
+                error:function(rep){
+                    alert("获取信息失败!");
+                }
+            });
+    })
+</script>
 </html>

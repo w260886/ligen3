@@ -3,6 +3,9 @@ package com.web.service.serivce;
 import com.web.service.dao.UserMapper;
 import com.web.service.entity.User;
 import com.web.service.entity.UserRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,7 +17,9 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserInfoMapper userInfoMapper;
+    private UserMapper userMapper;
+    @Autowired
+    private BaseServiceClient baseServiceClient;
 
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -22,13 +27,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUserInfos(Map<String, Object> paramMap) {
         paramMap.put("state", 1);
-        return userInfoMapper.getUserInfos(paramMap);
+        return userMapper.getUserInfos(paramMap);
     }
 
     @Override
     public List<UserRole> getUserRoleInfos(Map<String, Object> paramMap) {
         paramMap.put("state", 1);
-        return userInfoMapper.getUserRoleInfos(paramMap);
+        return userMapper.getUserRoleInfos(paramMap);
     }
 
     @Override
@@ -46,8 +51,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserInfo(User userInfo) {
-        if(1 == baseServiceClient.update(userInfo)){
+    public boolean updateUserInfo(User user) {
+        if(1 == baseServiceClient.update(user)){
             return true;
         } else {
             return false;

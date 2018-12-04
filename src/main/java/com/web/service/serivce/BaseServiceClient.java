@@ -3,7 +3,7 @@ package com.web.service.serivce;
 import java.util.HashMap;
 import java.util.List;
 
-public class BaseServiceClient {
+public interface BaseServiceClient {
     /**
      * 保存
      *

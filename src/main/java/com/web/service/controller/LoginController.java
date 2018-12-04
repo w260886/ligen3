@@ -1,5 +1,7 @@
-package com.web.service.common;
+package com.web.service.controller;
 
+import com.web.service.common.IConstants;
+import com.web.service.common.ParamUtils;
 import com.web.service.controller.BaseController;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/auth")
+@RequestMapping(value = "/")
 public class LoginController extends BaseController {
 
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value ="/login")
     public String login() {
-        return "/login";
+        return "login.html";
     }
 
     @ResponseBody

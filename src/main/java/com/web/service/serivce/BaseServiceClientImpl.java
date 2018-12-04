@@ -1,6 +1,11 @@
 package com.web.service.serivce;
 
 
+import com.web.service.common.Column;
+import com.web.service.common.Id;
+import com.web.service.common.Table;
+import com.web.service.common.WebException;
+import com.web.service.dao.BaseMapper;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service(value = "baseServie")
-public class BaseServiceClientImpl extends BaseServiceClient {
+public class BaseServiceClientImpl implements BaseServiceClient {
     //分批保存阀值
     private int count = 1000;
 
@@ -33,14 +38,14 @@ public class BaseServiceClientImpl extends BaseServiceClient {
     private Map<String, Object> transformObj(Object t, String type) {
         //获取表名
         if (null == t.getClass().getAnnotation(Table.class)) {
-            throw new CmsException("Error Input Object! Error @Table Annotation.");
+            throw new WebException("Error Input Object! Error @Table Annotation.");
         }
         Map<String, Object> re = new HashMap<String, Object>();
         re.put("TABLE_NAME", t.getClass().getAnnotation(Table.class).value());
 
         Method[] m = t.getClass().getMethods();
         if (null == m || m.length <= 0) {
-            throw new CmsException("Error Input Object! No Method.");
+            throw new WebException("Error Input Object! No Method.");
         }
         //insert数据结构
         if ("insert".equals(type)) {
@@ -59,7 +64,7 @@ public class BaseServiceClientImpl extends BaseServiceClient {
                 }
             }
             if (k.size() != v.size()) {
-                throw new CmsException("Error Input Object! Internal Error.");
+                throw new WebException("Error Input Object! Internal Error.");
             }
             re.put("COLUMNS", k);
             re.put("VALUES", v);
@@ -96,9 +101,9 @@ public class BaseServiceClientImpl extends BaseServiceClient {
         try {
             return i.invoke(t, null);
         } catch (IllegalAccessException e) {
-            throw new CmsException("Error Input Object! Error Invoke Get Method.", e);
+            throw new WebException("Error Input Object! Error Invoke Get Method.", e);
         } catch (InvocationTargetException e) {
-            throw new CmsException("Error Input Object! Error Invoke Get Method.", e);
+            throw new WebException("Error Input Object! Error Invoke Get Method.", e);
         }
     }
 
@@ -116,9 +121,9 @@ public class BaseServiceClientImpl extends BaseServiceClient {
             params = transformObj(c.newInstance(), "common");
             log.info(new StringBuffer("Function Query.Transformed Params:").append(params).toString());
         } catch (InstantiationException e) {
-            throw new CmsException("Common Query Error.", e);
+            throw new WebException("Common Query Error.", e);
         } catch (IllegalAccessException e) {
-            throw new CmsException("Common Query Error.", e);
+            throw new WebException("Common Query Error.", e);
         }
         params.put("KEY_VALUE", id);
         return baseMapper.queryForObject(params);
@@ -170,7 +175,7 @@ public class BaseServiceClientImpl extends BaseServiceClient {
             if (null != sqlSession) {
                 sqlSession.rollback();
             }
-            throw new CmsException(e);
+            throw new WebException(e);
         } finally {
             if (null != sqlSession) {
                 sqlSession.close();
