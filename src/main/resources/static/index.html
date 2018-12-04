@@ -84,7 +84,7 @@
           <li><a href="fullCalendar.html"><i class="icon-calendar"></i> My Calendar</a></li>
           <li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>
           <li class="divider"></li>
-          <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+          <li><a href="" id="logOut"><i class="icon-key"></i> 退出</a></li>
         </ul>
       </li>
     </ul>
@@ -718,7 +718,21 @@
 <link rel="alternate stylesheet" type="text/css" href="common/assets/switcher/i.css" title="i" media="all" />
 <link rel="alternate stylesheet" type="text/css" href="common/assets/switcher/j.css" title="j" media="all" />
 
-
+<script>
+  $("#logOut").click(function(){
+      $.ajax({
+          type: 'POST',
+          url: "/logout",
+          dataType:"json",
+          success: function(rep){
+              window.location.href="/login.html";
+          },
+          error:function(rep){
+              alert("获取信息失败!");
+          }
+      });
+  });
+</script>
 
 </body>
 </html>

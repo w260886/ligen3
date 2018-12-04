@@ -67,5 +67,12 @@ public class LoginController extends BaseController {
         return reJson;
     }
 
-
+    @RequestMapping("/logout")
+    public JsonBean logout() {
+        JsonBean reJson = new JsonBean();
+        reJson.setMessage("退出成功");
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return reJson;
+    }
 }
