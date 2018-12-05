@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.service.dao.NewsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.web.service.entity.NewsInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="insert_time" jdbcType="DATE" property="insertTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.web.service.entity.NewsInfo">
+    <result column="news_info" jdbcType="LONGVARCHAR" property="newsInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, insert_time, update_user, state, news_title,content
+  </sql>
+  <sql id="Blob_Column_List">
+    news_info
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryNewsList" resultType="com.web.service.entity.NewsInfo">
+    select
+    <include refid="Base_Column_List"/>
+    from news_info
+    <where>
+      <if test="id != null and id != ''">and id = #{id}</if>
+      <if test="content != null and content != ''">and content = #{content}</if>
+      <if test="insertTime != null and insertTime != ''">and insert_time = #{insertTime}</if>
+      <if test="updateUser != null and updateUser != ''">and update_user = #{updateUser}</if>
+      <if test="state != null and state != ''">and state = #{state}</if>
+      <if test="newsTitle != null and newsTitle != ''">and news_title = #{newsTitle}</if>
+    </where>
+    <!--<choose>-->
+      <!--<when test="insertTime != null and insertTime.trim() != ''">-->
+        <!--order by ${insertTime}-->
+      <!--</when>-->
+      <!--<otherwise>-->
+        <!--order by id desc-->
+      <!--</otherwise>-->
+    <!--</choose>-->
+    <!--<if test="offset != null and limit != null">-->
+      <!--limit #{offset}, #{limit}-->
+    <!--</if>-->
+  </select>
+
+  <select id="queryNewsCount" resultType="java.lang.Integer">
+    select
+    COUNT(*)
+    from news_info
+    <where>
+      <if test="id != null and id != ''">and id = #{id}</if>
+      <if test="content != null and content != ''">and content = #{content}</if>
+      <if test="insertTime != null and insertTime != ''">and insert_time = #{insertTime}</if>
+      <if test="updateUser != null and updateUser != ''">and update_user = #{updateUser}</if>
+      <if test="state != null and state != ''">and state = #{state}</if>
+      <if test="newsTitle != null and newsTitle != ''">and news_title = #{newsTitle}</if>
+    </where>
+    <!--<if test="offset != null and limit != null">-->
+    <!--limit #{offset}, #{limit}-->
+    <!--</if>-->
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from news_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.web.service.entity.NewsInfo">
+    insert into news_info (id, insert_time, update_user, 
+      state, news_title, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{insertTime,jdbcType=DATE}, #{updateUser,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{newsTitle,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.service.entity.NewsInfo">
+    insert into news_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="insertTime != null">
+        insert_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="newsTitle != null">
+        news_title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=DATE},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="newsTitle != null">
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.service.entity.NewsInfo">
+    update news_info
+    <set>
+      <if test="insertTime != null">
+        insert_time = #{insertTime,jdbcType=DATE},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="newsTitle != null">
+        news_title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.web.service.entity.NewsInfo">
+    update news_info
+    set insert_time = #{insertTime,jdbcType=DATE},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      news_title = #{newsTitle,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.service.entity.NewsInfo">
+    update news_info
+    set insert_time = #{insertTime,jdbcType=DATE},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      news_title = #{newsTitle,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

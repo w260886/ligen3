@@ -64,7 +64,7 @@ public class LoginController extends BaseController {
         }
         reJson.setData(res);
         reJson.setMessage("登陆成功");
-        return reJson;
+            return reJson;
     }
 
     @RequestMapping("/logout")
