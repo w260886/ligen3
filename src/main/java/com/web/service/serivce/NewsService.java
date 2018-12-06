@@ -11,7 +11,7 @@ import java.util.Map;
 public interface NewsService {
 
 
-    public List<NewsInfo> getList(int currentPage,int pageNum, int pageSize) ;
+    public Map getList(int currentPage,int pageNum, int pageSize) ;
 
 
 }

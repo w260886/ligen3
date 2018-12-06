@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/news")
@@ -18,11 +20,12 @@ public class NewsController extends BaseController{
 
     @RequestMapping("/itemsPage")
     @ResponseBody
-    public List<NewsInfo> itemsPage(HttpServletRequest request) {
+    public Map itemsPage(HttpServletRequest request) {
         try {
             Integer currentPage = Integer.valueOf(request.getParameter("currentPage"));
-            Integer pageNum = Integer.valueOf(request.getParameter("pageNum"));
-            Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
+            Integer pageNum = Integer.valueOf(request.getParameter("pageNum")==null?"1":request.getParameter("pageNum"));
+            Integer pageSize = Integer.valueOf(request.getParameter("pageSize")==null?"10":request.getParameter("pageSize"));
+
             return newsService.getList(currentPage, pageSize, pageNum) ;
         } catch (NumberFormatException e) {
             e.printStackTrace();
